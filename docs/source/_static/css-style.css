@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+.highlight, .c {
+    font-family: 'JetBrains Mono', monospace !important;
+}

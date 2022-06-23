@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="148mm"
+   height="105mm"
+   viewBox="0 0 148 105"
+   version="1.1"
+   id="svg2245"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2247"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.6819304"
+     inkscape:cx="306.49306"
+     inkscape:cy="204.52689"
+     inkscape:window-width="1920"
+     inkscape:window-height="1050"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2242" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3413"
+       transform="matrix(1.4484075,0,0,1.4484075,-15.476436,6.3876175)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:34.4447px;line-height:1.25;font-family:sans-serif;fill:#ef6f6c;fill-opacity:1;stroke:none;stroke-width:0.861119"
+         x="74.898361"
+         y="40.726608"
+         id="text2454"><tspan
+           sodipodi:role="line"
+           id="tspan2452"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.4px;font-family:'Jones*';-inkscape-font-specification:'Jones*, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ef6f6c;fill-opacity:1;stroke-width:0.861119"
+           x="74.898361"
+           y="40.726608">M</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:25.3551px;line-height:1.25;font-family:sans-serif;fill:#ef6f6c;fill-opacity:1;stroke:none;stroke-width:0.633879"
+         x="21.682789"
+         y="40.726608"
+         id="text2454-4"><tspan
+           sodipodi:role="line"
+           id="tspan2452-5"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.4px;font-family:'Jones*';-inkscape-font-specification:'Jones*, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ef6f6c;fill-opacity:1;stroke-width:0.633879"
+           x="21.682789"
+           y="40.726608">SR</tspan></text>
+      <g
+         id="g2514-1"
+         transform="matrix(0,0.67928075,-0.67928075,0,92.425078,2.2039433)"
+         style="stroke:#465775;stroke-opacity:1">
+        <g
+           id="g3064"
+           transform="matrix(0.88967496,0,0,0.88967496,5.854944,4.2947955)"
+           style="stroke:#465775;stroke-opacity:1">
+          <circle
+             style="fill:none;fill-rule:evenodd;stroke:#465775;stroke-width:1.58021;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+             id="path2508-7"
+             cx="29.83498"
+             cy="38.92857"
+             r="1.670549" />
+          <path
+             sodipodi:type="star"
+             style="fill:none;fill-rule:evenodd;stroke:#465775;stroke-width:2.15436;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+             id="path2510-4"
+             inkscape:flatsided="true"
+             sodipodi:sides="3"
+             sodipodi:cx="44.698067"
+             sodipodi:cy="20.428213"
+             sodipodi:r1="15.516978"
+             sodipodi:r2="7.7584887"
+             sodipodi:arg1="0.52359878"
+             sodipodi:arg2="1.5707963"
+             inkscape:rounded="0"
+             inkscape:randomized="0"
+             d="m 58.136164,28.186702 -26.876195,0 13.438098,-23.2754671 z"
+             transform="matrix(0,-1.0249973,1.0249973,0,27.58662,84.743967)"
+             inkscape:transform-center-x="3.976214" />
+        </g>
+      </g>
+      <path
+         style="fill:none;stroke:#465775;stroke-width:0.982058;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 65.944048,20.284838 V 17.354751 H 100.61565 V 46.318466 H 65.939377 c 0.02832,-3.107459 0,-6.526295 0,-6.526295"
+         id="path2601"
+         sodipodi:nodetypes="cccccc" />
+    </g>
+  </g>
+</svg>
