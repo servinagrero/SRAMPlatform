@@ -6,22 +6,13 @@
 
 # Usage
 
-For a more in detail documentation of the platform, please take a look at the documentation. Sphinx is needed to build the documentation. To install sphinx and all required dependencies:
-
 ```shell
 $ git clone https://github.com/servinagrero/SRAMPlatform.git
 $ cd SRAMPlatform
-$ pip install -r requirements.txt
+$ pip install .
 ```
 
-Once the dependencies are installed, the documentation can be built:
-```shell
-$ cd SRAMPlatform/docs
-$ make html
-```
-
-The entry point of the documentation can be found in ``docs/build/html/index.html``.
-
+For a more in detail documentation of the platform, please take a look at the [documentation](https://servinagrero.github.io/SRAMPlatform).
 
 ## License
 
