@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "sramplatform"
+version = "0.1.0"
+description = ""
+authors = ["Sergio Vinagrero <servinagrero@gmail.com>"]
+license = "GPL-2.0-only"
+readme = "README.md"
+classifiers = [
+  "License :: OSI Approved :: GPL 2.0 License",
+  "Programming Language :: Python",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pika = "^1.3.0"
+SQLAlchemy = "^1.4.41"
+pyserial = "^3.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

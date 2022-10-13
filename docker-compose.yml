@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: 'rabbitmq'
+        environment:
+            RABBITMQ_ERLANG_COOKIE: "ERLANG COOKIE"
+            RABBITMQ_DEFAULT_USER: "username"
+            RABBITMQ_DEFAULT_PASS: "password"
+            RABBITMQ_DEFAULT_VHOST: "/"
+        ports:
+            - 5672:5672
+            - 15672:15672
+        networks:
+            - rabbitmq_net
+
+    postgres:
+        image: postgres:latest
+        container_name: "postgre"
+        environment:
+            POSTGRES_USER: "username"
+            POSTGRES_PASSWORD: "password"
+            POSTGRES_DB: "database"
+        ports:
+            - 5432:5432
+        volumes:
+            - /path/to/db:/var/lib/postgresql/data
+
+networks:
+    rabbitmq_net:
+        driver: bridge

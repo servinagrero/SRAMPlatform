@@ -1,0 +1,45 @@
+site_name: SRAMPlatform
+repo_url: https://github.com/servinagrero/SRAMPlatform
+repo_name: SRAMPlatform
+edit_uri: ""
+theme:
+    logo: img/logo.png
+    name: material
+    palette:
+        primary: white
+        accent: light blue
+    font:
+        text: Inter
+        code: JetBrains Mono
+    icon:
+        repo: fontawesome/brands/github
+    features:
+        - navigation.tabs
+        - content.code.annotate
+
+plugins:
+  - search
+  
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - def_list
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  
+nav:
+    - Introduction: index.md
+    - Components: components.md
+    - Devices: devices.md
+    - Communication: communication.md
+    - Commands: commands.md
+    - Storage: database.md
+    - Logging: logging.md
+    - Setup: setup.md
+    
+
