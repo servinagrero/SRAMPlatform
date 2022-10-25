@@ -58,15 +58,23 @@ def create_handler(name: str, conf: Dict[str, Any]) -> HandlerType:
     if name == "RabbitMQHandler":
         return RabbitMQHandler(conf["url"], conf["key"], conf["exachange"])
     if name == "MailHandler":
-        return MailHandler(conf["mail"], conf["oauth"], conf["recipients"])
+        return MailHandler(
+            conf["mail"], conf["oauth"], conf["recipients"], conf["subject"]
+        )
     if name == "FileHandler":
         return FileHandler(conf["path"])
     if name == "StreamHandler":
         return StreamHandler(sys.stdout)
     if name == "RotatingFileHandler":
-        return RotatingFileHandler(conf["path"])
+        return RotatingFileHandler(
+            conf["path"], maxBytes=conf["maxBytes"], backupCount=conf["backupCount"]
+        )
     if name == "TimedRotatingFileHandler":
-        return TimedRotatingFileHandler(conf["path"])
+        return TimedRotatingFileHandler(
+            conf["path"],
+            when=conf["when"],
+            backupCount=conf["backupCount"],
+        )
     raise ValueError(f"Handler {name} is not available")
 
 
@@ -119,17 +127,18 @@ class RabbitMQHandler(logging.StreamHandler):
 class MailHandler(logging.StreamHandler):
     """Log handler for Email."""
 
-    def __init__(self, email, oauth_path, recipients):
+    def __init__(self, email, oauth_path, recipients, subject):
         super(MailHandler, self).__init__(self)
         self.mail = yagmail.SMTP(email, oauth2_file=oauth_path)
         if isinstance(recipients, list):
             self.recipients = recipients
         else:
             self.recipients = list(recipients)
+        self.subject = subject
 
     def emit(self, record):
         msg = self.format(record)
         template = f"""
         {msg}
         """
-        self.mail.send(to=self.recipients, subject="SRAMPlatform", contents=template)
+        self.mail.send(to=self.recipients, subject=self.subject, contents=template)

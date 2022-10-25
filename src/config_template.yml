@@ -1,0 +1,42 @@
+agent:
+    url: "amqp://user:password@hostname"
+    name: "agent name"
+    exchange: "rabbitmq exchange"
+reader:
+    board_type: "Type of board the reader manages"
+    port: "/path/to/ttyUSB"
+    baudrate: 125000
+logging:
+    format: "[%(asctime)s] [%(levelname)-8s] %(message)s"
+    datefmt: "%H:%M:%S %d-%m-%Y"
+    loggers:
+        - TelegramHandler:
+            level: WARNING # INFO by default
+            token: "Telegram Bot Token"
+            chat_ids: 00000000000
+            # Custom log format
+            format: "[%(asctime)s] %(name)s\n%(message)s"
+            # Filter logs with highel level than filter_level
+            # If level and filter are defined, the logs allowed are
+            # level <= level < filter_level
+            filter_level: RESULTS
+        - RabbitMQHandler:
+            key: "routing key"
+            exchange: ""
+        - StreamHandler:
+            level: DEBUG
+        - MailHandler:
+            email: "email@gmail.com"
+            oauth: "/path/to/oauth.json"
+            recipients:
+            subject: 
+        - FileHandler:
+            path: "/path/to/file.log"
+        - RotatingFileHandler:
+            path: "/path/to/file.log"
+            maxBytes: 20000
+            backupCount: 7
+        - TimedRotatingFileHandler:
+            path: "/path/to/file.log"
+            when: "midnight"
+            backupCount: 7
