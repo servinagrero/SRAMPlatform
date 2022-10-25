@@ -1,0 +1,7 @@
+../Core/Src/sramplatform.c:19:6:read_sram	16	static
+../Core/Src/sramplatform.c:26:6:write_sram	16	static
+../Core/Src/sramplatform.c:33:6:send_buffer	24	static
+../Core/Src/sramplatform.c:37:6:collect_bid	40	static
+../Core/Src/sramplatform.c:56:10:parse_packet	576	static
+../Core/Src/sramplatform.c:75:6:send_packet	16	static
+../Core/Src/sramplatform.c:84:10:make_crc	16	static
