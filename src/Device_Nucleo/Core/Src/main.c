@@ -367,8 +367,6 @@ int main(void) {
 			RESET_UPWARDS()
 			break;
 		}
-		RESET_DOWNWARDS()
-		RESET_UPWARDS()
 	}
 	/* USER CODE END 3 */
 }

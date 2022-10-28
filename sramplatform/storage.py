@@ -85,15 +85,3 @@ class DBManager:
         Session = sessionmaker(engine)
         self.session = Session()
         TableBase.metadata.create_all(engine)
-
-    def insert(self, data: object):
-        """Insert an item into the DB.
-
-        Args:
-            data: Data to be inserted in the database.
-        """
-        self.session.add(data)
-
-    def commit(self):
-        """Commit the pending changes to the DB."""
-        self.session.commit()

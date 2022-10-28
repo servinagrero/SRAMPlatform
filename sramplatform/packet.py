@@ -44,6 +44,25 @@ def format_uid(uid: Union[str, bytes]) -> str:
     return uid.decode("ascii").split("\x00")[0]
 
 
+def offset_to_address(offset: int, data_size: int, sram_start: int = 0x20000000) -> str:
+    """Convert an offset in memory to absolute memory address.
+
+    Args:
+        offset: Offset from the start of the SRAM.
+        sram_start: Byte representing the start of the SRAM. 0x20000000 by default.
+
+    Raises:
+        ValueError: If offset is negative.
+
+    Returns:
+        Address formated as 0xXXXXXXXX.
+    """
+    if offset < 0:
+        raise ValueError("Offset cannot be negative")
+
+    return f"0x{sram_start + (offset * data_size):08X}"
+
+
 class Packet:
     """Packet used for the communication protocol.
 
@@ -57,22 +76,23 @@ class Packet:
         checksum: CRC of the packet for integrity.
     """
 
-    #: How many bytes of data the packet holds.
-    DATA_SIZE = 512
+    def __init__(self, data_size: int):
+        self.data_size = data_size
+        self.bytes_fmt = f"<BBI25s{self.data_size}BH"
+        self.size = struct.calcsize(self.bytes_fmt)
 
-    __bytes_fmt = f"<BBI25s{DATA_SIZE}BH"
-
-    #: Total size of the packet.
-    SIZE = struct.calcsize(__bytes_fmt)
-
-    def __init__(self):
         self.__command: int = Command.PING.value
         self.__pic: int = 0
         self.__options: int = 0x0
         self.__uid: str = "0" * 25
-        self.__data: List[int] = [0x7] * Packet.DATA_SIZE
+        self.__data: List[int] = [0x7] * self.data_size
         self.checksum: Optional[int] = None
         self.__bytes: Optional[bytes] = None
+
+    @classmethod
+    def full_size(cls, data_size: int):
+        packet = cls(data_size)
+        return packet.size
 
     def __str__(self):
         checksum = self.checksum or 0
@@ -117,25 +137,6 @@ class Packet:
     def data(self):
         "Getter for data"
         return self.__data
-
-    @classmethod
-    def off_to_add(cls, offset: int, sram_start: int = 0x20000000) -> str:
-        """Convert an offset in memory to absolute memory address.
-
-        Args:
-            offset: Offset from the start of the SRAM.
-            sram_start: Byte representing the start of the SRAM. 0x20000000 by default.
-
-        Raises:
-            ValueError: If offset is negative.
-
-        Returns:
-            Address formated as 0xXXXXXXXX.
-        """
-        if offset < 0:
-            raise ValueError("Offset cannot be negative")
-
-        return f"0x{sram_start + (offset * cls.DATA_SIZE):08X}"
 
     def with_command(self, command: Union[int, Command]):
         """Set the command of the packet."""
@@ -185,7 +186,7 @@ class Packet:
 
         if self.checksum is None:
             self.__bytes = struct.pack(
-                self.__bytes_fmt,
+                self.bytes_fmt,
                 self.__command,
                 self.__pic,
                 self.__options,
@@ -195,7 +196,7 @@ class Packet:
             )
             self.checksum = crc16(self.__bytes)
         self.__bytes = struct.pack(
-            self.__bytes_fmt,
+            self.bytes_fmt,
             self.__command,
             self.__pic,
             self.__options,
@@ -205,7 +206,7 @@ class Packet:
         )
 
     @classmethod
-    def from_bytes(cls, raw_data: bytes):
+    def from_bytes(cls, data_size: int, raw_data: bytes):
         """
         Create a packet from bytes.
 
@@ -218,8 +219,10 @@ class Packet:
         Returns:
           Packet created from the bytes.
         """
-        if len(raw_data) != Packet.SIZE:
-            error = f"Packet size {len(raw_data)} does not match {Packet.SIZE}"
+        packet = cls(data_size)
+
+        if len(raw_data) != packet.size:
+            error = f"Packet size {len(raw_data)} does not match {data_size}"
             raise ValueError(error)
         (
             command,
@@ -228,9 +231,8 @@ class Packet:
             uid,
             *data,
             checksum,
-        ) = struct.unpack(Packet.__bytes_fmt, raw_data)
+        ) = struct.unpack(packet.bytes_fmt, raw_data)
 
-        packet = cls()
         packet.with_command(command)
         packet.with_pic(pic)
         packet.with_uid(uid)

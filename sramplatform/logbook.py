@@ -78,11 +78,10 @@ def create_handler(name: str, conf: Dict[str, Any]) -> HandlerType:
     raise ValueError(f"Handler {name} is not available")
 
 
-class Status(Enum):
-    # A command was carried out without errors
-    OK = "OK"
-    # There were errors during the execution of a command
-    ERR = "ERR"
+class CommandError(Exception):
+    def __init__(self, msg, level=None):
+        super().__init__(msg)
+        self.level = level
 
 
 class LogLevelFilter(logging.Filter):

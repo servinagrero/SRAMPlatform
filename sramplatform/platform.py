@@ -3,14 +3,25 @@
 from typing import Union
 from enum import Enum
 import logging
-from typing import Optional, Dict, Any, TypeVar, Tuple
-import yaml
+import signal
+from typing import TypeVar, Tuple
 from dataclasses import dataclass
-
+import yaml
 from fenneq import Agent
 
+
 from sramplatform.reader import Reader
-from sramplatform.logbook import Status, make_formatter, create_handler, LogLevelFilter
+from sramplatform.logbook import (
+    CommandError,
+    make_formatter,
+    create_handler,
+    LogLevelFilter,
+)
+
+
+def timeout_handler(signum, frame):
+    raise TimeoutError
+
 
 ReaderType = TypeVar("ReaderType", bound=Reader)
 
@@ -24,26 +35,35 @@ class Dispatcher:
         db_session: Session to a DB to store data.
     """
 
-    def __init__(self, agent, logger, db_session):
+    def __init__(self, agent, logger, dbmanager, timeout):
         self.agent = agent
-        self.db_session = db_session
+        self.dbmanager = dbmanager
         self.logger = logger
+        self.timeout = timeout
 
     def add_command(self, handler, func, **options):
-        """ """
+        """
+        """
 
         @self.agent.on(handler, **options)
         def handler_fn(msg):
             command = msg.body["command"]
             self.logger.debug("Handler %s called", command)
             try:
-                res = func(msg.body, self.logger, self.db_session)
-                if res == Status.OK:
-                    self.logger.debug("Handler %s executed correctly", command)
-                else:
-                    self.logger.debug("Handler %s executed with errors", command)
+                signal.signal(signal.SIGALRM, timeout_handler)
+                signal.alarm(self.timeout)
+                func(msg.body, self.logger, self.dbmanager.session)
+            except TimeoutError:
+                self.logger.critical("Handler %s timeout", command)
+            except CommandError as err:
+                self.logger.error("%s", err)
             except Exception as excep:
                 self.logger.critical(f"Error while executing handler: {excep}")
+            else:
+                self.logger.debug("Handler %s executed correctly", command)
+            finally:
+                signal.alarm(0)
+
 
     def run(self):
         """Make the dispatcher listen for commands."""

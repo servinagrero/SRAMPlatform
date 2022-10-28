@@ -127,6 +127,7 @@ static inline uint16_t crc16_byte(uint16_t crc, uint8_t data)
 }
 
 uint16_t crc16(uint16_t, uint8_t *, size_t);
+uint16_t make_crc(packet_t*, uint8_t *);
 
 
 #endif /* INC_SRAMPLATFORM_H_ */
