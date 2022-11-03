@@ -155,7 +155,9 @@ class STM32Reader(Reader):
                 logger.warning("Could not power off port")
                 raise CommandError
         except Exception as excep:
-            raise CommandError(f"Problem powering off port {self.port['path']}: {excep}") from excep
+            raise CommandError(
+                f"Problem powering off port {self.port['path']}: {excep}"
+            ) from excep
 
     def handle_power_on(self, props: Dict[str, Any], logger, db_session):
         """Power on the serial port.
@@ -175,7 +177,9 @@ class STM32Reader(Reader):
                 logger.warning("Could not power on port")
                 raise CommandError
         except Exception as excep:
-            raise CommandError(f"Problem powering on port {self.port['path']}: {excep}") from excep
+            raise CommandError(
+                f"Problem powering on port {self.port['path']}: {excep}"
+            ) from excep
 
     def handle_ping(self, props: Dict[str, Any], logger, db_session):
         """Register the devices connected to the reader.
@@ -249,9 +253,7 @@ class STM32Reader(Reader):
                 continue
 
             if not packet.check_crc() or packet.command == Command.ERR:
-                logger.warning(
-                    f"Packet {packet!s} for device {dev} is corrupted"
-                )
+                logger.warning(f"Packet {packet!s} for device {dev} is corrupted")
                 continue
 
             sensors_data = res.extract_sensors()
@@ -395,9 +397,7 @@ class STM32Reader(Reader):
                 continue
 
             if len(samples) != num_addresses:
-                logger.warning(
-                    f"The memory sample for device {dev} is not complete"
-                )
+                logger.warning(f"The memory sample for device {dev} is not complete")
                 continue
 
             end_offset = (num_addresses) - READ_ONLY_REGIONS
@@ -514,9 +514,7 @@ class STM32Reader(Reader):
         self.send(packet.to_bytes())
         res = next(iter(self.receive()), None)
         if res is None:
-            raise CommandError(
-                f"Problem retrieving results from device {dev}"
-            )
+            raise CommandError(f"Problem retrieving results from device {dev}")
 
         if not res.check_crc() or res.command == Command.ERR:
             raise CommandError(f"Packet {packet!s} is corrupted")
