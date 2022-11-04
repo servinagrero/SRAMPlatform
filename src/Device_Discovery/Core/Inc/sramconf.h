@@ -21,10 +21,10 @@
 #define TEMP110_CAL_ADDRESS 0x1FF800FE
 
 /// Number of blocks from SRAM_START the source buffer is located
-#define SRC_BUF_OFFSET 148
+#define SRC_BUF_OFFSET 56
 
 /// Number of blocks from SRAM_START the write buffer is located
-#define WRITE_BUF_OFFSET 150
+#define WRITE_BUF_OFFSET 58
 
 /// Maximum number of bytes in the WRITE Buffer
 #define WRITE_BUF_MAX (DATA_SIZE)
