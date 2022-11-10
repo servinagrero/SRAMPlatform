@@ -1,0 +1,7 @@
+.md-content {
+    margin-right: 15vw;
+}
+
+:root > * {
+  --md-primary-fg-color:        #1CA18E;
+}

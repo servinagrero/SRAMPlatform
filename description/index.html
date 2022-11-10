@@ -13,7 +13,7 @@
     
     
       
-        <title>Logging - SRAMPlatform</title>
+        <title>Description - SRAMPlatform</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#logging" class="md-skip">
+        <a href="#dispatcher" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Logging
+              Description
             
           </span>
         </div>
@@ -220,13 +220,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../description/" class="md-tabs__link">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
         Platform
       </a>
     </li>
@@ -236,15 +238,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../tima/" class="md-tabs__link md-tabs__link--active">
+      <a href="../tima/" class="md-tabs__link">
         TIMA Station
       </a>
     </li>
@@ -332,12 +332,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -358,11 +360,76 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../description/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Description
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Description
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dispatcher" class="md-nav__link">
+    Dispatcher
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reader" class="md-nav__link">
+    Reader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device" class="md-nav__link">
+    Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-manager" class="md-nav__link">
+    Database manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-manager" class="md-nav__link">
+    Logging manager
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -394,14 +461,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -436,16 +501,14 @@
               
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
       
       
       
@@ -508,21 +571,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../logging/" class="md-nav__link">
         Logging
       </a>
-      
     </li>
   
 
@@ -661,29 +714,74 @@
                   
 
 
-<h1 id="logging">Logging</h1>
-<p>The way commands are added to a dispatcher is through the <code>add_command()</code> method.</p>
-<div class="highlight"><span class="filename">Implementation example of add_command()</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span> <span class="nf">add_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;Add a command to a dispatcher&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="nd">@self</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span> <span class="nf">handler_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="k">if</span> <span class="n">response</span><span class="p">:</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            <span class="n">message</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;handler&quot;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">],</span> <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">response</span><span class="p">}</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div>
-<p>The result of the command, if any, will be logged automatically to the logging channel specified in the Dispatcher.</p>
-<div class="highlight"><span class="filename">Function template whose result is logged.</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">sramplatform</span> <span class="kn">import</span> <span class="n">Status</span><span class="p">,</span> <span class="n">LogLevel</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span> <span class="nf">custom_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">if</span> <span class="kc">True</span><span class="p">:</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">Status</span><span class="o">.</span><span class="n">OK</span><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="k">return</span> <span class="p">{</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">Status</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="n">LogLevel</span><span class="o">.</span><span class="n">Info</span><span class="p">,</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            <span class="s1">&#39;msg&#39;</span><span class="p">:</span> <span class="s2">&quot;Error message&quot;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="p">}</span>
+  <h1>Description</h1>
+
+<p>The SRAM Platform is composed of 3 main components:</p>
+<ul>
+<li>A <code>dispatcher</code> to handle messages between the user and the platform.</li>
+<li>A <code>reader</code> to receive and send commands from and to the connected devices.</li>
+<li>The <code>devices</code> connected to the platform to be studied.</li>
+</ul>
+<p>There are also two other components, a database and logging manager, whose purpose is the storage of samples and the recording of commands respectively.</p>
+<p>The source code of the platform can be found under the directory <code>sramplatform</code> inside the project. 
+The API reference can be accesed <a href="../platform_api/">here</a>.</p>
+<h2 id="dispatcher">Dispatcher</h2>
+<p>The dispatcher is the first big component of the platform. It will listen to messages comming from a message broker and will dispatch the appropiato command to the required reader.</p>
+<p>A message broker enables applications and systems to communicate with each other and exchange information. It is the main mechanism that allows a user to send commands to a station to be processed and executed later in time. <a href="https://rabbitmq.com">RabbitMQ</a> is the the message broker chosen. One of the advantages of using RabbitMQ is that we have access to queues to hold messages so that users can send multiple commands at a time without the need of waiting for them to be executed directly.</p>
+<p>In order to manage the connections to the message broker and handling the messages, the library makes use of <a href="https://servinagrero.github.io/fenneq">fenneq</a> agents. The documentation of fenneq provides in detail explanations on how to setup an agent to connect to RabbitMQ.</p>
+<h2 id="reader">Reader</h2>
+<p>The objective of the reader is to be provide an iterface to communicate with the different devices. It receives the messages from the dispatcher after they have been filtered and it generates the necessary data to be send to the devices to carry out the desired command.</p>
+<p>The code written is this library is device agnostic, so a reader can manage multiple types of devices at the same time. However, it is advised that a reader is in charge of only a specific type of device. Multiple readers can be assigned to the same dispatcher to be able to perform some commands on a series of devices with just a simple group of commands.</p>
+<p>The basic functionaly of a reader is defined ith the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.reader.Reader"><code>Reader</code></a> interface. The documentation for this component is found in the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.reader"><code>reader</code></a> module.</p>
+<h2 id="device">Device</h2>
+<p>A device is the smallest unit of the station. These are the physical devices whose memory will be read and studied. This framework is designed to work with microcontrollers but it should work with other devices as long as the communication protocol is implemented.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In this documentation, the terms <strong>device</strong> and <strong>board</strong> are equivalent.</p>
+</div>
+<h2 id="database-manager">Database manager</h2>
+<p>The objective of this platform is to retrieve the memory of devices in order to be analysed later. In order to store the samples a database needs to be used to reliable store samples and retrieve them efficiently.</p>
+<p>The parameters for connection to a database are handled by the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.storage.DBParameters"><code>DBParameters</code></a> class. The connection itself and operations can be carried out with the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.storage.DBManager"><code>DBManager</code></a> class. The default database is <a href="https://postgresql.com">PostreSQL</a> but another database can be used by configuring the DBParameters and docker, since the operations in the database are managed by an ORM.</p>
+<p>The documentation for this manager is found in the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.storage"><code>storage</code></a> module.</p>
+<h2 id="logging-manager">Logging manager</h2>
+<p>The logging manager keeps track of every command that has been executed by a reader and display any errors or information along the way. The logging component is implement through the <a href="https://docs.python.org/3/howto/logging.html">logging</a> module in the standard library. </p>
+<p>The platform provides also some custom handlers to alert the user, such as <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.logbook.RabbitMQHandler"><code>RabbitMQHandler</code></a>, <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.logbook.TelegramHandler"><code>TelegramHandler</code></a> and <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.logbook.MailHandler"><code>MailHandler</code></a>.</p>
+<p>The documentation for this manager is found in the <a class="autorefs autorefs-internal" href="../platform_api/#sramplatform.logbook"><code>logbook</code></a> module.</p>
+<p>The <em>logging</em> section of the platform configuration shows all available configuration options for logging. The section is shown below.</p>
+<div class="highlight"><span class="filename">Logging configuration</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">logging</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[%(asctime)s]</span><span class="nv"> </span><span class="s">[%(levelname)-8s]</span><span class="nv"> </span><span class="s">%(message)s&quot;</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">datefmt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;%H:%M:%S</span><span class="nv"> </span><span class="s">%d-%m-%Y&quot;</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">loggers</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">TelegramHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">            </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WARNING</span><span class="w"> </span><span class="c1"># INFO by default</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">            </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Telegram</span><span class="nv"> </span><span class="s">Bot</span><span class="nv"> </span><span class="s">Token&quot;</span><span class="w"></span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">            </span><span class="nt">chat_ids</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00000000000</span><span class="w"></span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">            </span><span class="c1"># Custom log format</span><span class="w"></span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">            </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[%(asctime)s]</span><span class="nv"> </span><span class="s">%(name)s\n%(message)s&quot;</span><span class="w"></span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">            </span><span class="c1"># Filter logs with highel level than filter_level</span><span class="w"></span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">            </span><span class="c1"># If level and filter are defined, the logs allowed are</span><span class="w"></span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">            </span><span class="c1"># level &lt;= level &lt; filter_level</span><span class="w"></span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">            </span><span class="nt">filter_level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RESULTS</span><span class="w"></span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RabbitMQHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">            </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;routing</span><span class="nv"> </span><span class="s">key&quot;</span><span class="w"></span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">            </span><span class="nt">exchange</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">StreamHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">            </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">MailHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">            </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;email@gmail.com&quot;</span><span class="w"></span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">            </span><span class="nt">oauth</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/oauth.json&quot;</span><span class="w"></span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">            </span><span class="nt">recipients</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">            </span><span class="nt">subject</span><span class="p">:</span><span class="w"> </span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">FileHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/file.log&quot;</span><span class="w"></span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">RotatingFileHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/file.log&quot;</span><span class="w"></span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">            </span><span class="nt">maxBytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20000</span><span class="w"></span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">            </span><span class="nt">backupCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span><span class="w"></span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">TimedRotatingFileHandler</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/path/to/file.log&quot;</span><span class="w"></span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">            </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;midnight&quot;</span><span class="w"></span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">            </span><span class="nt">backupCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span><span class="w"></span>
 </code></pre></div>
 
 
@@ -710,7 +808,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../database/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Storage" rel="prev">
+        <a href="../starting/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting started" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -719,20 +817,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Storage
+              Getting started
             </div>
           </div>
         </a>
       
       
         
-        <a href="../code_exec/" class="md-footer__link md-footer__link--next" aria-label="Next: Code Execution" rel="next">
+        <a href="../platform_api/" class="md-footer__link md-footer__link--next" aria-label="Next: Platform API" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Code Execution
+              Platform API
             </div>
           </div>
           <div class="md-footer__button md-icon">
