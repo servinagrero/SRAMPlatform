@@ -4,8 +4,6 @@
 
 # Introduction
 
-## Brief description
-
 This platform is a collection of tools that aim to automate the process of collecting memory samples of numerous micro-controllers and their subsequent storage for future analysis. The memory data gathered will then be used mainly for SRAM-based Physical Unclonable Functions (PUF) analysis, as it is normally very difficult to gather enough data for this type of analysis.
 
 ## Motivation
@@ -16,12 +14,10 @@ Using the available raw-data, any user of the platform can carry out their own e
 
 As a totally new feature, to the best of our knowledge unique up to the date, we offer the user the possibility of interaction with the boards by controlling the switch On/Off time of the micro-controllers (data remanence studies) and writing custom values in the SRAM (NBTI studies).
 
+## Documentation structure
 
-## Data Availability
+The section [Getting started](starting.md) shows how to install the platform and the dependencies required.
 
-<figure markdown>
-  ![logo](./img/SRAM_Platform.jpg){ width="800" }
-</figure>
+The implementation of the platform is described in detail [here](description.md).
 
-
-An Station has been deployed at TIMA Laboratory in Grenoble, France. The data gathered in this station is publicly available online through the following [website](https://puf4iot.univ-grenoble-alpes.fr)
+The documentation of the current platform is shown [here](tima.md)

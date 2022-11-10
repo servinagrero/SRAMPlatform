@@ -247,11 +247,11 @@ class Packet:
 
         The information of the sensors is stored in the following way:
 
-        #. ``temp_110_cal``: Calibration of temperature at 110 Celsius.
-        #. ``temp_30_cal``: Calibration of temperature at 30 Celsius.
-        #. ``temp_raw``: Raw value of temperature.
-        #. ``vdd_cal``: Calibration of VDD.
-        #. ``vdd_raw``: Raw value of VDD.
+        - `temp_110_cal`: Temperature calibration at 110 Celsius.
+        - `temp_30_cal`: Temperature calibration at 30 Celsius.
+        - `temp_raw`: Raw value of temperature.
+        - `vdd_cal`: Calibration of VDD.
+        - `vdd_raw`: Raw value of VDD.
 
         All the values are stored in 2 bytes.
 
@@ -574,8 +574,15 @@ CRC16_LUT = [
 ]
 
 
-def crc16(buffer: bytes):
-    """ """
+def crc16(buffer: bytes) -> int:
+    """Calculate the CRC16 from a byte buffer.
+    
+    Args:
+        buffer: Buffer of bytes.
+    
+    Returns:
+        The calculated CRC.
+    """
     crc = 0
 
     def crc16_byte(crc, data):

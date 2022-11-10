@@ -28,10 +28,3 @@ def custom_fn(*args, **kwargs):
             'msg': "Error message"
         }
 ```
-
-## Grafana Dashboard
-
-[Grafana](https://grafana.com/) is a multi-platform open source analytics and interactive visualization web application. It allows to display analytics in realtime.
-
-!!! info
-    [Grafana import and export](https://grafana.com/docs/grafana/latest/dashboards/export-import/)

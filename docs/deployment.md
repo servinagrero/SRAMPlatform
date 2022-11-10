@@ -1,36 +1,12 @@
-Open-platform for the acquisition of SRAM-based PUFs from Micro-Controllers
-
 # Setup guide
 
 This section will describe the requirements needed to deploy a station. Here we describe first the software requirements followed by the hardware requirements and lastly, their physical installation and deployment.
-
-## Python dependencies
-
-Python dependencies can be installed by using the requirements.txt file provided. It is recomended, but not mandatory, to create a virtual environment to install the requirements. The following code describes the process of creating a virtual env and installing the dependencies.
-
-
-```{.sh title="Using pip"}
-$ python3 -m venv /path/to/virtual_env
-$ source /path/to/virtual_env/bin/activate
-$ pip install -r requirements.txt
-$ deactivate # To exit the virtual environment
-```
-
-```{.sh title="Using poetry"}
-$ cd /path/to/SRAMPlatform
-$ poetry install
-```
 
 ## Device source code
 
 This project contains code for two different STM32 boards. Each project is managed by STM32Cube. Devices should be programmed using the same software.
 
-## Other dependencies
-
-The platform relies on `RabbitMQ <https://www.rabbitmq.com/>`_ for the communication and queing of commands, and `PostgreSQL <https://www.postgresql.org/>`_ for the storage. They can be deployed easily thanks to `Docker <https://www.docker.com/>`_.
-
-!!! info
-    The access to the database is carried out with an ORM, so the user should be able to swap PostreSQL for another database in case they need.
+## Setting up docker
 
 The file **docker-compose.yml** provides the template necesary to launch those services. However, it is necesary to update the configuration values in the file before deploying. The main parameters to modify are user and password of both RabbitMQ and PostgreSQL. The other important parameter is the volume configuration for postgreSQL, (e.g. where to store the data in the computer). The path before the semicolon points to the path in the computer where to store the samples. **The path after the semicolorn should not be modified**.
 
@@ -122,4 +98,10 @@ ExecStart=/path/to/virtualenv/bin/python3 send_command.py "OFF"
 
 [Install]
 WantedBy=multi-user.target
+```
+
+## Configuring a dispatcher
+
+```{.yaml title="Example of configuration"}
+--8<-- "./src/config_template.yml"
 ```

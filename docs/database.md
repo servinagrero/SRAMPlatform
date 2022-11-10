@@ -1,10 +1,12 @@
 # Storage
 
-The information is stored in a PostreSQL database. In the python code, the database is managed with the sqlalchemy ORM. That means that the tables in the database can be created from a python class. All of the logic concerning the database is carried out by the **`DBManager`**.
+The information is stored in a PostreSQL database. In the python code, the database is managed with the sqlalchemy ORM. That means that the tables in the database can be created from a python class. All of the logic concerning the database is carried out by the DBManager class.
+
+## Schema definition
+
+SRAM samples and sensors are managed by the classes [`Sample`][src.database.Sample] and [`Sensor`][src.database.Sensor] respectively.
 
 ## Storing samples and sensor information
-
-SRAM samples and sensors are stored as the python classes **`Sample`** and **`Sensor`**, respectively.
 
 ```{.py3 title="Example of storing a sample and sensor"}
 url = "postgres://username:password@localhost:5432/database"
@@ -30,15 +32,3 @@ db.insert(sensor)
 
 db.commit()
 ```
-
-## Storing the log of operations
-
-A sample is stored as a Log. The different levels for the messages are "INFO", "CRITICAL" and "WARNING" as described in LogLevel.
-
-```{.py title="Example of storing a log"}
-name = "agent_name"
-level = LogLevel.INFO
-message = "This is a simple message"
-db.log(self, name, level, message)
-```
-
