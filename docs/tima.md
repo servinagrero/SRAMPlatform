@@ -1,3 +1,9 @@
+# TIMA SRAM Platform
+
+<figure markdown>
+  ![logo](./img/logo_tima_sram.svg){ width="500" }
+</figure>
+
 This section contains information about the SRAM platform that has been deployed and it's currently working at the [TIMA Laboratory](https://tima.univ-grenoble-alpes.fr/) in Grenoble, France. 
 
 The platform is composed of 70 ST nucleo boards and 45 ST discovery boards, composing a total of 115 devices.

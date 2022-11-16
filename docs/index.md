@@ -1,5 +1,5 @@
 <figure markdown>
-  ![logo](./img/logo.png){ width="300" }
+  ![logo](./img/logo.svg){ width="300" }
 </figure>
 
 # Introduction

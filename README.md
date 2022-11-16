@@ -1,5 +1,5 @@
 <div align='center'>
-<img src="logo.png" width="300px">
+<img src="docs/img/logo.svg" width="300px">
 <h1>SRAM Reliability Platform</h1>
 </div>
 

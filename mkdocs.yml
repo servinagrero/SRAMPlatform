@@ -3,7 +3,7 @@ repo_url: https://github.com/servinagrero/SRAMPlatform
 repo_name: SRAMPlatform
 edit_uri: ""
 theme:
-    logo: img/logo.png
+    logo: img/logo.svg
     name: material
     palette:
         - scheme: default
