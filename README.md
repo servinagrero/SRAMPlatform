@@ -14,6 +14,14 @@ $ pip install .
 
 For a more in detail documentation of the platform, please take a look at the [documentation](https://servinagrero.github.io/SRAMPlatform).
 
+## Citation
+
+If the data obtained from the platform is used within a scientific or technical publication, you are requested to cite the following paper:
+
+> S. Vinagrero, H. Martin, A. de Bignicourt, E.-I. Vatajelu, and G. Di Natale, "SRAM-Based PUF Readouts," Scientific Data 10, 333 (2023). https://doi.org/10.1038/s41597-023-02225-9
+
+[Official publication](https://www.nature.com/articles/s41597-023-02225-9)
+
 ## License
 
 This project is licensed under the [GPL-2 License](./LICENSE)

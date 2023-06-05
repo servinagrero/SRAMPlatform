@@ -21,3 +21,8 @@ The section [Getting started](starting.md) shows how to install the platform and
 The implementation of the platform is described in detail [here](description.md).
 
 The documentation of the current platform is shown [here](tima.md)
+
+
+!!! info
+
+    This documentation is still in progress. Except things to be added, removed or changed.
