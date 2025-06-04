@@ -85,7 +85,7 @@ class STM32Reader(Reader):
         ser.write(data)
         ser.flushOutput()
 
-    def receive(self, timeout: float = 0.2, tries=50) -> List[Packet]:
+    def receive(self, timeout: float = 0.2, tries=200) -> List[Packet]:
         """Received data from the serial port.
 
         Args:
@@ -102,7 +102,7 @@ class STM32Reader(Reader):
         msg = b""
 
         time.sleep(timeout)
-        checks = deque(maxlen= tries // 2)
+        checks = deque(maxlen=tries // 2)
         for _ in range(tries):
             checks.appendleft(ser.in_waiting)
             while ser.in_waiting:
@@ -152,12 +152,9 @@ class STM32Reader(Reader):
                 self.port["state"] = "OFF"
                 logger.info("Port powered off")
             else:
-                logger.warning("Could not power off port")
-                raise CommandError
+                raise CommandError("Could not power off port")
         except Exception as excep:
-            raise CommandError(
-                f"Problem powering off port {self.port['path']}: {excep}"
-            ) from excep
+            raise CommandError(f"Problem powering off port {self.port['path']}: {excep}") from excep
 
     def handle_power_on(self, props: Dict[str, Any], logger, db_session):
         """Power on the serial port.
@@ -174,12 +171,9 @@ class STM32Reader(Reader):
                 self.port["state"] = "ON"
                 logger.info("Port powered on")
             else:
-                logger.warning("Could not power on port")
-                raise CommandError
+                raise CommandError("Could not power on port")
         except Exception as excep:
-            raise CommandError(
-                f"Problem powering on port {self.port['path']}: {excep}"
-            ) from excep
+            raise CommandError(f"Problem powering on port {self.port['path']}: {excep}") from excep
 
     def handle_ping(self, props: Dict[str, Any], logger, db_session):
         """Register the devices connected to the reader.
@@ -241,6 +235,8 @@ class STM32Reader(Reader):
         if not self.devices:
             raise CommandError("No devices managed")
 
+        current_day = datetime.now()
+        current_day = current_day.replace(hour=12, minute=0, second=0)
         for dev in self.devices:
             packet = Packet(self.data_size)
             packet.with_command(Command.SENSORS)
@@ -253,7 +249,9 @@ class STM32Reader(Reader):
                 continue
 
             if not packet.check_crc() or packet.command == Command.ERR:
-                logger.warning(f"Packet {packet!s} for device {dev} is corrupted")
+                logger.warning(
+                    f"Packet {packet!s} for device {dev} is corrupted"
+                )
                 continue
 
             sensors_data = res.extract_sensors()
@@ -271,9 +269,11 @@ class STM32Reader(Reader):
             db_session.add(
                 Sensor(
                     uid=format_uid(res.uid),
+                    pic=dev.pic,
                     board_type=self.name,
                     temperature=sensors_data["temperature"],
                     voltage=sensors_data["voltage"],
+                    created_at=current_day,
                 )
             )
             db_session.commit()
@@ -310,7 +310,6 @@ class STM32Reader(Reader):
                     logger.warning(f"Packet {packet!s} is corrupted")
                     continue
 
-                logger.debug(f"Read memory of {dev} at offset {offset}")
                 db_session.add(
                     Sample(
                         board_type=self.name,
@@ -321,7 +320,8 @@ class STM32Reader(Reader):
                         created_at=current_day,
                     )
                 )
-            db_session.commit()
+                db_session.commit()
+                logger.debug(f"Read memory of device {dev} at offset {offset}")
 
             logger.info(f"Finished reading memory of {dev}")
 
@@ -334,17 +334,17 @@ class STM32Reader(Reader):
             raise CommandError("No devices managed")
 
         offset = props["offset"]
-        dev_uid = props["device"]
-        dev = next(filter(lambda d: d.uid == dev_uid, self.devices), None)
+        dev_id = props["device"]
+        dev = next(filter(lambda d: d.uid == dev_id, self.devices), None)
 
         if not dev:
-            raise CommandError(f"Device {dev_uid} is not managed")
+            raise CommandError(f"Device {dev.id} is not managed")
 
         max_offset = dev.sram_size // self.data_size
 
         if offset < 0 or offset > max_offset:
             raise CommandError(
-                f"Offset {offset} for device {dev} must be in range [0, {max_offset}]"
+                f"Offset {offset} for device {dev_id} must be in range [0, {max_offset}]"
             )
 
         packet = Packet(self.data_size)
@@ -358,7 +358,7 @@ class STM32Reader(Reader):
         res = next(iter(self.receive()), None)
         if res is None:
             raise CommandError(
-                f"Problem writing to memory of device {dev} at offset {offset}"
+                f"Problem writing to memory of device {dev.pic}{dev.uid} at offset {offset}"
             )
 
         if not res.check_crc() or res.command == Command.ERR:
@@ -398,7 +398,9 @@ class STM32Reader(Reader):
                 continue
 
             if len(samples) != num_addresses:
-                logger.warning(f"The memory sample for device {dev} is not complete")
+                logger.warning(
+                    f"The memory sample for device {dev} is not complete"
+                )
                 continue
 
             end_offset = (num_addresses) - READ_ONLY_REGIONS
@@ -415,17 +417,58 @@ class STM32Reader(Reader):
                 res = next(iter(self.receive()), None)
                 if res is None:
                     logger.error(
-                        f"Problem writing inverted values of device {dev} at offset {offset}"
+                        f"Problem writing inverted values of device {dev.pic}{dev.uid} at offset {offset}"
                     )
                     continue
 
                 if not res.check_crc() or res.command == Command.ERR:
                     logger.warning(f"Packet {packet!s} is corrupted")
                     continue
-            
-                logger.debug(f"Wrote inverted values of device {dev} at offset {offset}")
-                
+                logger.debug(f"Inverted memory of device {dev} at offset {offset}")
+
             logger.info(f"Finished inverting memory of device {dev}")
+
+    def handle_write_const(self, props: Dict[str, Any], logger, db_session):
+        """
+        """
+        if self.port["state"] == "OFF":
+            raise CommandError("Serial port is off. Turn on the serial port first")
+
+        if not self.devices:
+            raise CommandError("No devices managed")
+
+        value = props["value"]
+        dev_id = props["device"]
+        dev = next(filter(lambda d: d.uid == dev_id, self.devices), None)
+
+        if not dev:
+            raise CommandError(f"Device {dev.id} is not managed")
+
+        end_offset = (num_addresses) - READ_ONLY_REGIONS
+        for offset in range(READ_ONLY_REGIONS, end_offset):
+            sample = samples[offset]
+            packet = Packet(self.data_size)
+            packet.with_command(Command.WRITE)
+            packet.with_uid(dev.uid)
+            packet.with_options(offset)
+            packet.with_data([value] * self.data_size)
+            packet.craft()
+
+            self.send(packet.to_bytes())
+            res = next(iter(self.receive()), None)
+            if res is None:
+                logger.error(
+                    f"Problem writing constant value of device {dev} at offset {offset}"
+                )
+                continue
+
+            if not res.check_crc() or res.command == Command.ERR:
+                logger.warning(f"Packet {packet!s} is corrupted")
+                continue
+            logger.debug(f"Wrote constant in memory of device {dev} at offset {offset}")
+
+        logger.info(f"Finished writing constant to memory of device {dev}")
+
 
     def handle_load(self, props: Dict[str, Any], logger, db_session):
         """ """
@@ -439,7 +482,7 @@ class STM32Reader(Reader):
         dev = next(filter(lambda d: d.uid == dev_uid, self.devices), None)
 
         if not dev:
-            raise CommandError(f"Device {dev_uid} is not managed")
+            raise CommandError(f"Device {dev.uid} is not managed")
 
         source = props["source"]
         len_code = len(source)
@@ -485,7 +528,7 @@ class STM32Reader(Reader):
         res = next(iter(self.receive()), None)
 
         if res is None:
-            raise CommandError(f"Problem executing code on device {dev}")
+            raise CommandError(f"Problem executing code on device {dev.pic}{dev.uid}")
 
         if not res.check_crc() or res.command == Command.ERR:
             raise CommandError(f"Packet {packet!s} is corrupted")
@@ -517,7 +560,9 @@ class STM32Reader(Reader):
         self.send(packet.to_bytes())
         res = next(iter(self.receive()), None)
         if res is None:
-            raise CommandError(f"Problem retrieving results from device {dev}")
+            raise CommandError(
+                f"Problem retrieving results from device {dev}"
+            )
 
         if not res.check_crc() or res.command == Command.ERR:
             raise CommandError(f"Packet {packet!s} is corrupted")
@@ -527,7 +572,7 @@ class STM32Reader(Reader):
         numbers_str = map(
             lambda n: n.replace("10", "\n").replace("32", " "), numbers_str
         )
-        logger.info(f"Results retrieved correctly from device {dev}")
+        logger.info(f"Results retrieved correctly from device {dev_uid}")
 
         logger.results(
             json.dumps(
